@@ -1,0 +1,121 @@
+<pip-document>
+    <div class="p24-flex bp16">
+        <div class="pip-ref-title layout-row layout-align-start-center bp8">
+            <div class="pip-pic tm0 big-icon">
+                <md-icon md-svg-icon="icons:info-circle" ng-if="$ctrl.event.severity == $ctrl.severityLow" class="fg-cyan">
+                </md-icon>
+                <md-icon md-svg-icon="icons:warn-triangle" ng-if="$ctrl.event.severity == $ctrl.severityMedium" class="fg-orange">
+                </md-icon>
+                <md-icon md-svg-icon="icons:stop" ng-if="$ctrl.event.severity == $ctrl.severityHigh" class="color-error">
+                </md-icon>
+            </div>
+            <div class="pip-content">
+                <p class="pip-title">{{ $ctrl.event.description }}</p>
+                <p class="pip-subtitle">
+                    {{ $ctrl.event.time | formatMiddleDateLongTime }}
+                </p>
+            </div>
+        </div>
+        <div class="pip-ref-item layout-row layout-align-start-center" ng-if="$ctrl.event.ref.id && $ctrl.event.ref.id != '0'">
+            <pip-avatar class="rm16 pip-face" pip-rebind="true" pip-id="$ctrl.event.ref.id" pip-name="$ctrl.event.ref.name">
+            </pip-avatar>
+            <div class="pip-content">
+                <p class="pip-title">{{ $ctrl.event.ref.name }}</p>
+                <p class="pip-subtitle">{{ $ctrl.event.ref | formatObjectSubtitle }}</p>
+            </div>
+        </div>
+
+
+        <div class="layout-row layout-align-start-center event-content" ng-if="$ctrl.event.ref.assigned_name">
+            <div class="flex-fixed rm16">
+                <md-icon md-svg-icon="iqs:schedule" class="incident-icon">
+                </md-icon>
+            </div>
+            <div class="pip-content tp8 bp8">
+                <div class="flex text-body2 text-overflow">
+                    {{ $ctrl.event.ref.assigned_name }}
+                </div>
+                <div class="pip-subtitle color-secondary-text">
+                    {{ ::'INCIDENT_ASSIGNED' | translate }}
+                </div>
+            </div>
+        </div>
+
+        <div class="layout-row layout-align-start-center pip-ref-item" ng-if="$ctrl.event && $ctrl.event.type == 'manual' && $ctrl.event.ref.accountName">
+            <pip-avatar class="rm16 pip-face" pip-rebind="true" pip-id="$ctrl.event.creator_id" pip-name="$ctrl.event.ref.accountName">
+            </pip-avatar>
+            <div class="pip-content flex">
+                <p class="flex pip-title">
+                    {{ $ctrl.event.ref.accountName }}
+                </p>
+            </div>
+        </div>
+
+        <div class="layout-row layout-align-start-center event-content" ng-if="$ctrl.event && $ctrl.event.type == 'incident' && $ctrl.event.resolution">
+            <div class="flex-fixed rm16">
+                <md-icon md-svg-icon="iqs:incident-res" class="incident-icon">
+                </md-icon>
+            </div>
+            <div class="event-text flex">
+                <div class="flex text-body1">
+                    {{ $ctrl.event.resolution }}
+                </div>
+            </div>
+        </div>
+
+        <div class="layout-row layout-align-start-center event-content" ng-if="$ctrl.event && $ctrl.event.type != 'incident' && $ctrl.event.eventValue">
+            <div class="flex-fixed rm16">
+                <md-icon md-svg-icon="iqs:incident" class="incident-icon">
+                </md-icon>
+            </div>
+            <div class="event-text flex">
+                <div class="flex text-body1">
+                    {{ $ctrl.event.eventValue }}
+                </div>
+            </div>
+        </div>
+
+        <div class="layout-row layout-align-start-center event-content" ng-if="$ctrl.event && $ctrl.event.type == 'incident' && $ctrl.event.ref && $ctrl.event.ref.incidentValue">
+
+            <div class="flex-fixed rm16">
+                <md-icon md-svg-icon="iqs:incident" class="incident-icon">
+                </md-icon>
+            </div>
+            <div class="event-text flex">
+                <div class="flex text-body1 text-overflow">
+                    {{ $ctrl.event.ref.incidentValue }}
+                </div>
+            </div>
+        </div>
+
+        <div class="layout-row layout-align-start-center event-content" ng-if="$ctrl.event.ref.locationName">
+            <div class="flex-fixed rm16">
+                <md-icon md-svg-icon="iqs:location" class="incident-icon">
+                </md-icon>
+            </div>
+            <div class="event-text flex">
+                <div class="flex text-body1">
+                    {{ $ctrl.event.ref.locationName }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<div class="h-stretch">-->
+    <div class="pip-body p16 tp0 lp0 rp0 layout-column flex">
+        <iqs-incidents-map-panel iqs-object="$ctrl.event.ref" iqs-rebuild="$ctrl.rebuild" ng-show="$ctrl.event.ref && $ctrl.event.ref.latitude 
+                && $ctrl.event.ref.longitude"
+                                 ng-click="$ctrl.openRetrospective($ctrl.event)">
+        </iqs-incidents-map-panel>
+    </div>
+    <div ng-if="!$ctrl.event.eventValue && !$ctrl.event.ref.locationName &&
+        !($ctrl.event.ref && $ctrl.event.ref.latitude 
+        && $ctrl.event.ref.longitude)  && !$ctrl.event.ref.accountName">
+        <div class="pip-subtitle layout-column layout-align-center-center">
+            <p>
+                {{ ::'OPERATIONAL_EVENT_EMPTY_LABEL' | translate }}
+            </p>
+        </div>
+    </div>
+
+
+</pip-document>

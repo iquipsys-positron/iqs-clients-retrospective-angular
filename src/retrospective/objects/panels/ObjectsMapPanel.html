@@ -1,0 +1,25 @@
+<pip-map pip-options="$ctrl.configs" ng-if="!$ctrl.startPause && !$ctrl.empty && $ctrl.object">
+    <!-- Objects -->
+    <pip-map-markers pip-models="$ctrl.objects"></pip-map-markers>
+    <!-- Dot traces -->
+    <pip-map-polylines pip-models="$ctrl.dottraces" pip-options="$ctrl.polylineOptions">
+    </pip-map-polylines>
+    <pip-map-markers pip-models="$ctrl.dottracePoints">
+    </pip-map-markers>
+    <!-- Polygon zones -->
+    <pip-map-polygons pip-models="$ctrl.polygons" pip-options="$ctrl.zoneOptions">
+    </pip-map-polygons>
+    <!-- Line zones -->
+    <pip-map-polylines pip-models="$ctrl.lines" pip-options="$ctrl.zoneOptions">
+    </pip-map-polylines>
+    <!-- Circle zones -->
+    <pip-map-circles pip-models="$ctrl.circles" pip-options="$ctrl.zoneOptions">
+    </pip-map-circles>
+</pip-map>
+
+<div class="pip-empty" ng-if="$ctrl.empty">
+    <img src="images/EmptyState.svg" class="pip-pic">
+    <div class="pip-text">
+        {{ ::'NO_COORDINATES' | translate }}
+    </div>
+</div>

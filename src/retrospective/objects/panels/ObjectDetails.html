@@ -1,0 +1,79 @@
+<pip-document class="pip-scroll ">
+
+	<md-progress-linear md-mode="indeterminate" style="position: absolute;" ng-show="$ctrl.transaction().busy() && $ctrl.state() != 'progress'"></md-progress-linear>
+	<div class="pip-header bp0 rp24 lp24 tp8" ng-if="$ctrl.state() == 'data'">
+		<div style="width: 100%">
+
+			<div class="pip-ref-item tm16">
+				<div class="pip-face-md iqs-device-avatar rm16 layout-row layout-align-center-center color-primary-bg p16 " ng-if="!$ctrl.collection[$ctrl.selectedIndex].object">
+					<md-icon class="" md-svg-icon="iqs:tracker-1"></md-icon>
+				</div>
+				<pip-avatar class="pip-face-md rm16" ng-if="$ctrl.collection[$ctrl.selectedIndex].object" pip-rebind="true" pip-id="$ctrl.collection[$ctrl.selectedIndex].object.id"
+				            pip-name="$ctrl.collection[$ctrl.selectedIndex].object.name"></pip-avatar>
+
+				<div class="pip-content flex" ng-if="$ctrl.collection[$ctrl.selectedIndex].object">
+					<p class="pip-title">{{$ctrl.collection[$ctrl.selectedIndex].object.name}}</p>
+					<p class="pip-subtitle">
+						{{$ctrl.collection[$ctrl.selectedIndex].object | formatObjectSubtitle}}
+					</p>
+				</div>
+				<div class="pip-content flex" ng-if="!$ctrl.collection[$ctrl.selectedIndex].object">
+					<p class="pip-title" ng-if="$ctrl.collection[$ctrl.selectedIndex].device">
+						{{$ctrl.collection[$ctrl.selectedIndex].device.label || $ctrl.collection[$ctrl.selectedIndex].device.udi}}
+					</p>
+					<p class="pip-subtitle" ng-if="$ctrl.collection[$ctrl.selectedIndex].device">
+						{{ $ctrl.getObjectName($ctrl.collection[$ctrl.selectedIndex].device.object_id) ||
+						$ctrl.collection[$ctrl.selectedIndex].device.object_id || 'free' | translate}}
+					</p>
+					<p class="pip-title" ng-if="!$ctrl.collection[$ctrl.selectedIndex].device">
+						{{::'UNKNOWN_OBJECT' | translate}}
+					</p>
+				</div>
+				<md-button class="md-icon-button flex-fixed" ng-if="$ctrl.collection[$ctrl.selectedIndex].object" ng-click="$ctrl.editClick()"
+				           aria-label="current user" tabindex="-1" ng-disabled="!$ctrl.accessConfig.objectEdit">
+					<md-icon md-svg-icon="icons:pen"></md-icon>
+				</md-button>
+			</div>
+
+			<md-tabs md-dynamic-height md-selected="$ctrl.section">
+				<md-tab ng-if="section.id != 2 || $ctrl.collection[$ctrl.selectedIndex].device.object_id" label="{{:: section.title | translate}}"
+				        id="{{section.id}}" ng-repeat="section in $ctrl.sections track by $index" ng-click="$ctrl.selectSection(section.id)">
+				</md-tab>
+			</md-tabs>
+
+		</div>
+	</div>
+	<div class="pip-body p24 tp16 lp0 rp0 layout-column flex" ng-if="$ctrl.state() == 'data'">
+		<iqs-retrospective-objects-information-panel ng-if="$ctrl.section == 0" iqs-object="$ctrl.collection[$ctrl.selectedIndex]"
+		                                             iqs-type="$ctrl.type">
+		</iqs-retrospective-objects-information-panel>
+		<iqs-retrospective-objects-map-panel ng-if="$ctrl.section == 1" iqs-object="$ctrl.collection[$ctrl.selectedIndex]"
+		                                     iqs-type="$ctrl.status">
+		</iqs-retrospective-objects-map-panel>
+		<iqs-operational-event-panel class="layout-column flex h-stretch" iqs-count="'2'" iqs-object-id="$ctrl.collection[$ctrl.selectedIndex].object_id"
+		                             ng-if="$ctrl.section == 2 && $ctrl.collection[$ctrl.selectedIndex].device.object_id">
+		</iqs-operational-event-panel>
+		<iqs-current-state-object-details-panel iqs-state="$ctrl.collection[$ctrl.selectedIndex]" class="lp16 rp16"
+		                                        iqs-details="'true'" iqs-object-status="'true'" ng-if="$ctrl.section == 3 || !$ctrl.collection[$ctrl.selectedIndex].device.object_id && $ctrl.section == 2">
+		</iqs-current-state-object-details-panel>
+	</div>
+	<div class="pip-body rp0 layout-column layout-align-center-center flex " ng-if="$ctrl.state() == 'empty' || $ctrl.state() == 'progress'">
+		<div class="layout-column layout-align-center-center flex bb-empty">
+			<div class="pip-empty" ng-if="$ctrl.state() == 'empty'">
+				<img src="images/empty/empty.svg" class="pip-pic">
+				<div class="pip-text">
+
+					{{::'MONITORING_EMPTY' | translate}}
+				</div>
+			</div>
+
+			<div class="pip-empty" ng-if="$ctrl.state() == 'progress'">
+				<img src="images/empty/progress.svg" class="pip-pic">
+				<div class="pip-text">
+					{{::'LOADING_OBJECTS' | translate}}
+					<md-progress-linear md-mode="indeterminate" class="tm24"></md-progress-linear>
+				</div>
+			</div>
+		</div>
+	</div>
+</pip-document>

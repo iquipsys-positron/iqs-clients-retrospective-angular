@@ -1,0 +1,38 @@
+<md-dialog class="pip-dialog layout-column pip-scroll iqs-retrospective-date-dialog" width="400" md-theme="{{$ctrl.theme}}">
+    <div class="pip-header pip-title p16 bp8">
+
+        <h3 class="m0 w-stretch">{{ :: 'RETROSPECTIVE_DIALOG_TITLE' | translate }}</h3>
+    </div>
+    <div class="pip-body pip-scroll p16">
+
+
+        <!-- Time selection -->
+        <div class="layout-column layout-align-start-stretch">
+            <div class="flex layout-column layout-align-start-start">
+                <span class="flex color-secondary-text text-caption" style="margin-bottom: -20px">{{::'RETRO_DATE' |
+                    translate}}</span>
+                <div class="flex layout-row w-stretch">
+                    <md-input-container class="md-block flex bm0">
+                        <md-datepicker class="w-stretch " md-hide-icons="calendar" aria-label="TIME" ng-model="$ctrl.date"
+                                       ng-disabled="$ctrl.isDisabled">
+                        </md-datepicker>
+                    </md-input-container>
+                    <div class="flex">
+                        <pip-time-autocomplete pip-time-label="'RETRO_TIME'" pip-change-callback="$ctrl.dateChange"
+                                               ng-disabled="false" pip-date-time="$ctrl.date" pip-time-step="'1'">
+                        </pip-time-autocomplete>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="pip-footer">
+
+        <md-button ng-click="$ctrl.onClose()">{{:: 'CANCEL' | translate }}</md-button>
+
+        <md-button class="md-accent" ng-click="$ctrl.onItemClick()">{{:: 'CHANGE' | translate }}</md-button>
+
+    </div>
+</md-dialog>

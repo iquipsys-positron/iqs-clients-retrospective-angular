@@ -1,0 +1,71 @@
+.iqs-operational-event-panel {
+    width: 100%;
+    @include flex();
+    @include flex-direction(column);
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    .pip-list-container {
+        overflow-x: hidden;
+    }
+    .table.table-striped {
+        .iqs-icon-td {
+            width: 48px;
+            min-width: 48px;
+            padding-left: 4px;
+            padding-right: 4px;
+            md-icon {
+                margin: 0 auto;
+                width: 100%;
+            }
+            text-align: center;
+        }
+        .iqs-small-medium-td {
+            min-width: 120px;
+            max-width: 120px;
+            width: 120px;
+            word-break: break-word;
+        }
+        .iqs-medium-td {
+            width: 200px;
+            min-width: 200px !important;
+            max-width: 200px !important;
+        }
+        .iqs-big-td {
+            width: 600px;
+            min-width: 600px !important;
+            max-width: 600px !important;
+        }
+        .iqs-button-td {
+            width: 64px;
+            min-width: 64px;
+            padding-top: 4px;
+            padding-bottom: 4px;
+            md-icon {
+                margin: 0 auto;
+                width: 100%;
+            }
+            text-align: center;
+        }
+    }
+    .pip-scroll-y {
+        overflow-y: auto;
+    }
+    .pip-action-list {
+        .md-button.pip-action-list-item {
+            margin: 0px;
+            min-height: 48px !important;
+            max-width: 100% !important;
+            .pip-title {
+                padding-left: 18px;
+                text-align: left;
+                line-height: 30px;
+                margin: 0px;
+            }
+        }
+    }
+}

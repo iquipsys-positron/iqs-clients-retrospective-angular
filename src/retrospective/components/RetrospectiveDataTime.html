@@ -1,0 +1,25 @@
+<div aria-label="DataTime" class=" m0 iqs-avatar-button  layout-column iqs-black color-accent-bg {{ $ctrl.class }}
+	{{ $ctrl.pipMedia('gt-sm') ? 'iqs-big' : 'iqs-small divider-top' }}">
+	<!--<div>{{$ctrl.date | formatMiddleDateTime}}</div> -->
+	<div class="layout-row flex-fixed iqs-avatar-button layout-align-start-center">
+		<md-button class="md-icon-button flex-fixed" ng-click="$ctrl.openDialog()" aria-label="current user" tabindex="-1">
+			<md-icon md-svg-icon="icons:pen"></md-icon>
+		</md-button>
+
+		<div class="layout-row layout-align-center-center flex">
+
+
+			<div iqs-test-timepicker ng-click="$ctrl.openDialog()" class="iqs-text">{{$ctrl.date | formatMiddleDateTime}}</div>
+		</div>
+		<md-button class="md-icon-button flex-fixed m0" ng-click="$ctrl.priv()" aria-label="current user" tabindex="-1">
+			<md-icon md-svg-icon="iqs:rev"></md-icon>
+		</md-button>
+		<md-button class="md-icon-button m0" ng-click="$ctrl.playClick()" aria-label="current user" tabindex="-1">
+			<md-icon md-svg-icon="iqs:stop" ng-if="$ctrl.play"></md-icon>
+			<md-icon md-svg-icon="iqs:play" ng-if="!$ctrl.play"></md-icon>
+		</md-button>
+		<md-button class="md-icon-button flex-fixed m0" aria-label="current user" tabindex="-1" ng-click="$ctrl.next()">
+			<md-icon md-svg-icon="iqs:fwd"></md-icon>
+		</md-button>
+	</div>
+</div>

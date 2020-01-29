@@ -1,0 +1,22 @@
+<pip-map-popup-content>
+    <div class="info-block tp0 bp0">
+
+        <iqs-current-state-object-details-panel iqs-state="parameter.model" iqs-retro="parameter.model.toTime"
+                                                iqs-details="parameter.model.details" iqs-popup-options="parameter.element.options">
+        </iqs-current-state-object-details-panel>
+
+        <div class="pip-footer " style="height: 54px">
+            <div class="w-stretch layout-row layout-align-end-end">
+                <md-button class="flex-fixed md-accent" ng-if="!parameter.model.object_id" ng-click="parameter.element.options.events.onAddObjects(parameter.model)">
+                    <div class="pip-title">{{ ::'MAP_POPUP_ASSIGN' | translate }}</div>
+                </md-button>
+                <md-button class="flex-fixed md-accent" ng-if="!parameter.model.details" ng-click="parameter.element.options.events.onDetails(parameter.element.options, parameter.model)">
+                    <div class="pip-title">{{ ::'MAP_POPUP_DETAILS' | translate }}</div>
+                </md-button>
+                <md-button class="flex-fixed md-accent" ng-if="parameter.model.details" ng-click="parameter.element.options.events.onLess(parameter.element.options, parameter.model)">
+                    <div class="pip-title">{{ ::'MAP_POPUP_LESS' | translate }}</div>
+                </md-button>
+            </div>
+        </div>
+    </div>
+</pip-map-popup-content>

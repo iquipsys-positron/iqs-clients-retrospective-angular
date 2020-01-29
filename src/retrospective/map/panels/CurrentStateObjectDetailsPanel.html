@@ -1,0 +1,221 @@
+<div class="pip-ref-item" ng-if="!$ctrl.state.object || !$ctrl.objectStatus">
+    <div class="pip-face iqs-device-avatar rm8 layout-row layout-align-center-center color-primary-bg" ng-if="!$ctrl.state.object">
+        <md-icon md-svg-icon="iqs:tracker-1" class="lm0 iqs-icon" style="color: white; height: 32px;"></md-icon>
+    </div>
+    <div class="pip-pic" ng-if="$ctrl.state.object">
+        <pip-avatar class="pip-face" pip-rebind="true" pip-id="$ctrl.state.object.id" pip-name="$ctrl.state.object.name">
+        </pip-avatar>
+    </div>
+    <div class="pip-content">
+        <p class="pip-title">{{ $ctrl.state.object.name || $ctrl.state.device.label || $ctrl.state.device.udi }}</p>
+        <p class="pip-subtitle" ng-if="$ctrl.state.object">{{ $ctrl.state.object.description || $ctrl.state.object.type
+            | translate }}</p>
+        <p class="pip-subtitle" ng-if="!$ctrl.state.object">{{ 'FREE_TRACKER' | translate }}</p>
+    </div>
+</div>
+
+<div class="layout-row layout-align-start-center bm8" ng-if="$ctrl.state.object && $ctrl.state.object.perm_assign_id && !$ctrl.details && !$ctrl.isPopup">
+    <md-icon md-svg-icon="iqs:quipment" class="lm0 iqs-icon" ng-if="$ctrl.state.permAssignObject.category === 'equipment'"></md-icon>
+    <md-icon md-svg-icon="iqs:asset" class="lm0 iqs-icon" ng-if="$ctrl.state.permAssignObject.category === 'asset'"></md-icon>
+    <div class="pip-content">
+        <div class="pip-title text-body2">
+            {{ $ctrl.state.permAssignObject.name }}
+        </div>
+        <div class="pip-subtitle color-secondary-text">
+            {{ ::'ASSIGNED_OBJECT' | translate }}
+        </div>
+    </div>
+</div>
+
+<div class="layout-row layout-align-start-center bm8" ng-if="!$ctrl.details">
+    <md-icon md-svg-icon="iqs:comm-on" class="lm0 iqs-icon" ng-if="$ctrl.state.localeOnline"></md-icon>
+    <md-icon md-svg-icon="iqs:comm-off" class="lm0 iqs-icon" ng-if="$ctrl.state.localeOfline"></md-icon>
+    <div class="pip-content">
+        <div class="pip-title text-body2" ng-if="$ctrl.state.localeOfline">
+            {{ $ctrl.state.localeOfline | formatTimeLong }}
+        </div>
+        <div class="pip-title text-body2" ng-if="$ctrl.state.localeOnline">
+            {{ $ctrl.state.localeOnline | formatTimeLong }}
+        </div>
+        <div class="pip-subtitle color-secondary-text">
+            {{ $ctrl.isActive() ? 'ONLINE' : 'OFFLINE' | translate }}
+        </div>
+    </div>
+</div>
+
+<div class="layout-row layout-align-start-center bm8" ng-if="$ctrl.state.object && !$ctrl.details  && !$ctrl.isPopup">
+    <md-icon md-svg-icon="iqs:tracker-1" class="lm0 iqs-icon"></md-icon>
+    <div class="pip-content">
+        <div class="pip-title text-body2">
+            {{ $ctrl.state.device.label || $ctrl.state.device.udi }}
+        </div>
+        <div class="pip-subtitle color-secondary-text">
+            {{ ::'DEVICE' | translate }}
+        </div>
+    </div>
+</div>
+
+<div class="layout-row layout-align-start-center bm8" ng-if="$ctrl.state.assigned_name && !$ctrl.details && $ctrl.isPopup">
+    <md-icon md-svg-icon="iqs:schedule" class="lm0 iqs-icon"></md-icon>
+    <div class="pip-content">
+        <div class="pip-title text-body2">
+            {{ $ctrl.state.assigned_name }}
+        </div>
+        <div class="pip-subtitle color-secondary-text">
+            {{ ::'INCIDENT_ASSIGNED' | translate }}
+        </div>
+    </div>
+</div>
+
+<div class="layout-row layout-align-start-center bm8" ng-if="!$ctrl.details && $ctrl.isPopup && $ctrl.state.speed">
+    <md-icon md-svg-icon="iqs:metric" class="lm0 iqs-icon"></md-icon>
+    <div class="pip-content">
+        <div class="pip-title text-body2">
+            {{ $ctrl.isActive() && $ctrl.state.speed !== null ? $ctrl.state.speed : '-' }} {{ $ctrl.isActive() &&
+            $ctrl.state.speed !==
+            null ? 'KM_IN_H' : '' | translate }}
+        </div>
+        <div class="pip-subtitle color-secondary-text">
+            {{ ::'SPEED' | translate }}
+
+        </div>
+    </div>
+</div>
+
+<!-- details -->
+
+<div class="layout-row layout-align-start-center divider-bottom bm8 bp8" ng-if="$ctrl.details && $ctrl.isPopup">
+    <div class="text-body1 iqs-param-label flex">
+        {{ ::'DEVICE' | translate }}
+    </div>
+    <div class="text-body2 flex">
+        {{ $ctrl.state.device.label || $ctrl.state.device.udi }}
+    </div>
+</div>
+
+<div class="layout-row layout-align-start-center divider-bottom bm8 bp8" ng-if="$ctrl.details">
+    <div class="text-body1 iqs-param-label flex">
+        {{ ::'UPDATE_TIME' | translate }}
+    </div>
+    <div class="text-body2 flex">
+        {{ $ctrl.state.time | formatMiddleDateLongTime }}
+    </div>
+</div>
+
+<div class="layout-row layout-align-start-center divider-bottom bm8 bp8" ng-if="$ctrl.details">
+    <div class="text-body1 iqs-param-label flex">
+        {{ ::'LATITUDE' | translate }}
+    </div>
+    <div class="text-body2 flex">
+        {{ $ctrl.state.latitude }}
+    </div>
+</div>
+
+<div class="layout-row layout-align-start-center divider-bottom bm8 bp8" ng-if="$ctrl.details">
+    <div class="text-body1 iqs-param-label flex">
+        {{ ::'LONGITUDE' | translate }}
+    </div>
+    <div class="text-body2 flex">
+        {{ $ctrl.state.longitude }}
+    </div>
+</div>
+
+<div class="layout-row layout-align-start-center divider-bottom bm8 bp8" ng-if="$ctrl.details && ($ctrl.state.alt || $ctrl.state.alt == 0)">
+    <div class="text-body1 iqs-param-label flex">
+        {{ ::'ALTITUDE' | translate }}
+    </div>
+    <div class="text-body2 flex">
+        {{ $ctrl.state.alt }} {{ 'METRS' | translate }}
+    </div>
+</div>
+
+<div class="layout-row layout-align-start-center divider-bottom bm8 bp8" ng-if="$ctrl.details && ($ctrl.state.angle || $ctrl.state.angle == 0)">
+    <div class="text-body1 iqs-param-label flex">
+        {{ ::'DIRECTION' | translate }}
+    </div>
+    <div class="text-body2 flex">
+        {{ $ctrl.isActive() && $ctrl.state.angle !== null ? $ctrl.state.angle : '-' }} {{ $ctrl.isActive() &&
+        $ctrl.state.angle !==
+        null ? 'DEG' : '' | translate }}
+    </div>
+</div>
+
+<div class="layout-row layout-align-start-center divider-bottom bm8 bp8" ng-if="$ctrl.details && ($ctrl.state.speed || $ctrl.state.speed == 0)">
+    <div class="text-body1 iqs-param-label flex">
+        {{ ::'SPEED' | translate }}
+    </div>
+    <div class="text-body2 flex">
+        {{ $ctrl.isActive() && $ctrl.state.speed !== null ? $ctrl.state.speed : '-' }} {{ $ctrl.isActive() &&
+        $ctrl.state.speed !==
+        null ? 'KM_IN_H' : '' | translate }}
+    </div>
+</div>
+
+<div class="layout-row layout-align-start-center divider-bottom bm8 bp8" ng-if="$ctrl.details">
+    <div class="text-body1 iqs-param-label flex">
+        {{ ::'ONLINE' | translate }}
+    </div>
+    <div class="text-body2 flex">
+        {{ $ctrl.state.localeOnline ? ($ctrl.state.localeOnline | formatTimeLong) : '-' }}
+    </div>
+</div>
+
+<div class="layout-row layout-align-start-center  divider-bottom bm8 bp8" ng-if="$ctrl.details && $ctrl.state.localeFreezed">
+    <div class="text-body1 iqs-param-label flex">
+        {{ ::'FREEZED' | translate }}
+    </div>
+    <div class="text-body2 flex">
+        {{ $ctrl.state.localeFreezed ? ($ctrl.state.localeFreezed | formatTimeLong) : '-' }}
+    </div>
+</div>
+
+
+<div class="layout-row layout-align-start-center  divider-bottom bm8 bp8" ng-if="$ctrl.details && $ctrl.state.localeImmobile">
+    <div class="text-body1 iqs-param-label flex">
+        {{ ::'OBJECT_STATE_IMMOBILE' | translate }}
+    </div>
+    <div class="text-body2 flex">
+        {{ $ctrl.state.localeImmobile ? ($ctrl.state.localeImmobile | formatTimeLong) : '-' }}
+    </div>
+</div>
+
+<div class="layout-row layout-align-start-center  divider-bottom bm8 bp8" ng-if="$ctrl.details && ($ctrl.state.power !== null && $ctrl.state.power !== undefined)">
+    <div class="text-body1 iqs-param-label flex">
+        {{ ::'OBJECT_STATE_POWER' | translate }}
+    </div>
+    <div class="text-body2 flex" ng-if="$ctrl.state.power">
+        {{ ::'OBJECT_STATE_POWER_ON' | translate }}
+    </div>
+    <div class="text-body2 flex" ng-if="!$ctrl.state.power">
+        {{ ::'OBJECT_STATE_POWER_OFF' | translate }}
+    </div>
+</div>
+
+<div class="layout-row layout-align-start-center  divider-bottom bm8 bp8" ng-if="$ctrl.details && $ctrl.state.beaconsString">
+    <div class="text-body1 iqs-param-label flex">
+        {{ ::'OBJECT_STATE_BEACONS' | translate }}
+    </div>
+    <div class="text-body2 flex">
+        {{ $ctrl.state.beaconsString }}
+    </div>
+</div>
+
+<div class="layout-row layout-align-start-center  divider-bottom bm8 bp8" ng-if="$ctrl.dataProfileState === 'data' && $ctrl.details && $ctrl.state.paramsCustom && $ctrl.state.paramsCustom.length && $ctrl.paramTypes[param.id + 100]" ng-repeat="param in $ctrl.state.paramsCustom">
+    <div class="text-body1 iqs-param-label flex">
+        {{ $ctrl.paramTypes[param.id + 100].name | translate }}
+    </div>
+    <div class="text-body2 flex">
+        {{ param.val }}
+    </div>
+</div>
+
+<!-- <div class="layout-row layout-align-start-center bm8" ng-if="$ctrl.details && $ctrl.state.beacons && $ctrl.state.beacons.length > 0">
+    <div class="text-body1 iqs-param-label flex">
+        {{ ::'OBJECT_STATE_BEACONS' | translate }}
+    </div>
+    <div class="layout-column layout-align-start-start text-overflow flex">
+        <div ng-repeat="beacon in $ctrl.state.beacons track by $index" class="text-body2">
+            {{ beacon }}
+        </div>
+    </div>
+</div> -->

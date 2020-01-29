@@ -1,0 +1,29 @@
+@import './panels/OperationalEventDetailsPanel';
+@import './panels/OperationalEventNewPanel';
+@import './panels/OperationalEventEmptyPanel';
+
+.iqs-retrospective-panel {
+    .iqs-operational-event-list {
+        .list-bottom-bufer {
+            display: block;
+            height: 64px;
+            width: 100%;
+        }
+    }
+}
+
+.pip-sm,
+.pip-xl {
+    .iqs-retrospective-panel {
+        .iqs-operational-event-list {
+            .list-bottom-bufer {
+                display: block;
+                height: 48px;
+                width: 100%;
+            }
+        }
+        .iqs-empty {
+            margin-block-end: 48px !important;
+        }
+    }
+}

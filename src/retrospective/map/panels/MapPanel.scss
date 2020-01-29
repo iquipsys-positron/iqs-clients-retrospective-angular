@@ -1,0 +1,73 @@
+@import "../../../common/dialogs/devices_objects/DevicesObjectsDialog";
+iqs-retrospective-map-panel {
+    .map-object-buttons {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        border-radius: 4px;
+        background-color: rgba(0, 0, 0, 0.56) !important;
+        button {
+            margin: 0px;
+            padding-top: 4px;
+            padding-right: 0;
+            padding-left: 0;
+            min-width: auto;
+        }
+        .map-object-button {
+            cursor: pointer;
+            color: white;
+            height: 48px;
+            margin: 0px;
+            min-width: 75px;
+            md-icon {
+                height: 40px !important;
+                width: 40px !important;
+                min-width: 40px !important;
+                margin: 0px; //margin-left: -10px;
+                color: white;
+            }
+            div {
+                height: 40px;
+                max-width: 50px;
+                span {
+                    line-height: 22px;
+                    font-size: 15px;
+                }
+                &.md-ripple-container {
+                    height: 48px;
+                    max-width: 100%;
+                }
+            }
+            span.accent {
+                color: #ff6e80;
+            }
+        }
+    }
+    .map-control-container {
+        position: absolute;
+        top: 48px;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        &.small {
+            top: 0 !important;
+        }
+    }
+    .top-panel {
+        z-index: 10;
+        position: absolute;
+        height: 48px;
+        top: 0;
+        iqs-global-search-panel {
+            width: 100%;
+            .pip-search-container {
+                width: 100%;
+            }
+        }
+    }
+    .zoom-buttons {
+        position: absolute;
+        right: 26px;
+        top: 12px;
+    }
+}

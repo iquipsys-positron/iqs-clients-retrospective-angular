@@ -1,0 +1,79 @@
+@import 'RetrospectiveDataTimeDialog';
+iqs-retrospective-data-time-panel {
+    width: 100%;
+    .iqs-flex-retro {
+        width: 100%;
+        left: 0px !important;
+        bottom: 0px !important;
+        position: absolute !important;
+        border-radius: 0px !important;
+    }
+    .iqs-small,
+    .iqs-big {
+        height: 48px;
+        border-radius: 5px;
+    }
+    .iqs-small {
+        position: relative;
+        width: 100%;
+        md-icon {
+            color: #fff;
+        } // &.iqs-objects {
+        //     bottom: 8px !important;
+        // }
+        &.iqs-map {
+            left: 0px !important;
+            bottom: 0px !important;
+            border-radius: 0px !important;
+        }
+    }
+    .iqs-big {
+        position: absolute;
+        bottom: 24px;
+        left: calc(50% - 80px);
+        md-icon {
+            color: #fff;
+        }
+    }
+    .iqs-reletive {
+        position: reletive;
+    }
+    .iqs-text {
+        cursor: pointer;
+        line-height: 48px;
+        height: 48px;
+        overflow: hidden;
+        vertical-align: middle;
+    }
+    .iqs-avatar-button {
+        height: 48px;
+        z-index: 10;
+    }
+}
+
+.iqs-retrospective-date-dialog {
+    .md-datepicker-input-container {
+        width: calc(100% - 16px);
+    }
+}
+
+/*
+.iqs-retrospective-date-dialog {
+    .iqs-retro-date{
+        width: 100%;
+         .md-datepicker-button {
+                display: none;
+            }
+        .md-datepicker-input-container {
+            width: 100%;
+            margin-left: 4px;
+        }
+    }
+.iqs-time-autocomplete-panel .pip-time-autocomplete-container {
+    width: initial;
+       md-input-container{
+margin-top: 3px !important;
+    }
+}
+ 
+}*/

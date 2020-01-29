@@ -1,0 +1,117 @@
+<div class="pip-main-menu iqs-operational-event iqs-retrospective-panel" ng-class="{'pip-single-content': $ctrl.details}">
+	<div class="pip-menu layout-column iqs-menu ">
+		<md-progress-linear md-mode="indeterminate" style="position: absolute;" ng-show="$ctrl.isSearch"></md-progress-linear>
+		<div class="m16" ng-if="$ctrl.pipMedia('gt-sm')">
+			<iqs-global-search-panel ng-disabled="$ctrl.transaction.busy()" iqs-search-query="$ctrl.searchCriteria"
+			                         iqs-search-callback="$ctrl.onSearchResult(query)" iqs-default-values="$ctrl.defaultCollection"
+			                         iqs-placeholder="'OPERATIONAL_EVENT_SEARCH'" iqs-cancel-callback="$ctrl.onCanselSearch()"
+			                         iqs-search-collection="$ctrl.searchedCollection">
+			</iqs-global-search-panel>
+		</div>
+		<iqs-retrospective-data-time-panel xxng-if="$ctrl.pipMedia('gt-sm')" iqs-date="$ctrl.date" iqs-change="$ctrl.changeDate(date)"
+		                                   iqs-play="$ctrl.play" iqs-change-play="$ctrl.changePlay(play)" iqs-class="$ctrl.class">
+		</iqs-retrospective-data-time-panel>
+
+		<div ng-show="$ctrl.error" class="pip-page-errors">
+			<span class="pip-error-text color-error flex"> {{ $ctrl.error }}</span>
+			<md-icon md-svg-icon="icons:warn-circle" class="color-error"></md-icon>
+		</div>
+
+		<div class="flex" style="position: relative">
+			<md-list class="pip-ref-list iqs-operational-event-list pip-scroll tp0 w-stretch" style="position: absolute; overflow-y: auto; overflow-x: hidden; height: calc(100% - 8px)"
+			         pip-selected="$ctrl.selectedIndex" pip-select="$ctrl.selectItem($event.index)" pip-selected-watch="$ctrl.selectedIndex">
+
+				<!-- search  -->
+				<div class="m8" ng-if="!$ctrl.pipMedia('gt-sm')">
+					<iqs-global-search-panel ng-disabled="$ctrl.transaction.busy()" iqs-search-query="$ctrl.searchCriteria"
+					                         iqs-search-callback="$ctrl.onSearchResult(query)" iqs-default-values="$ctrl.defaultCollection"
+					                         iqs-placeholder="'OPERATIONAL_EVENT_SEARCH'" iqs-cancel-callback="$ctrl.onCanselSearch()"
+					                         iqs-search-collection="$ctrl.searchedCollection">
+					</iqs-global-search-panel>
+				</div>
+				<!-- New event-->
+				<md-list-item class="pip-ref-list-item pointer divider-bottom pip-selectable selected" ng-if="$ctrl.state == 'add'"
+				              id="new-item" md-ink-ripple>
+					<div class="pip-pic medium-icon">
+						<md-icon md-svg-icon="icons:plus-circle">
+						</md-icon>
+					</div>
+					<div class="pip-content">
+						<p class="text-body2 text-overflow flex">
+							{{ ::'OPERATIONAL_EVENT_NEW' | translate }}
+						</p>
+					</div>
+				</md-list-item>
+				<!-- events list -->
+				<md-list-item class="pip-ref-list-item  pointer divider-bottom {{ $ctrl.state != 'add' ? 'pip-selectable' : 'iqs-not-selectable' }}"
+				              ng-class="{'selected': $ctrl.selectedItem.id == event.id && $ctrl.state != 'add' }" md-ink-ripple
+				              ng-repeat="event in $ctrl.collection track by event.id" ng-if="$ctrl.state == 'data' || $ctrl.state == 'add'">
+
+					<div class="pip-pic medium-icon" ng-click="$ctrl.selectItem($index)">
+						<md-icon md-svg-icon="icons:info-circle" ng-if="event.severity == $ctrl.severityLow" class="fg-cyan">
+						</md-icon>
+						<md-icon md-svg-icon="icons:warn-triangle" ng-if="event.severity == $ctrl.severityMedium" class="fg-orange">
+						</md-icon>
+						<md-icon md-svg-icon="icons:stop" ng-if="event.severity == $ctrl.severityHigh" class="color-error">
+						</md-icon>
+					</div>
+					<div class="pip-content" ng-click="$ctrl.selectItem($index)">
+						<p class="text-body2 text-overflow flex">
+							{{ event.description }}
+						</p>
+						<p class="text-body2 tm4 text-overflow flex rp24 rm8" ng-if="event.type != 'manual' && event.ref.name">
+							{{ event.ref.name }}
+						</p>
+						<p class="text-body2 tm4 text-overflow flex rp24 rm8" ng-if="event.type == 'manual' && event.ref.accountName">
+							{{ event.ref.accountName }}
+						</p>
+						<p class="pip-subtitle text-overflow flex rp24 rm8">
+							{{ event.timeString }}
+						</p>
+					</div>
+				</md-list-item>
+				<!-- last button -->
+				<md-list-item class="pip-ref-list-item pointer iqs-ref-list-button divider-bottom p0" md-ink-ripple ng-disabled="$ctrl.transaction.busy()"
+				              ng-if="$ctrl.state != 'progress' && (!$ctrl.isHistory && $ctrl.accessConfig.showEventHistory) || ($ctrl.isHistory && $ctrl.accessConfig.showEventMonitoring)">
+					<div class="layout-row layout-align-center-center flex" ng-click="$ctrl.onHistory()">
+						<div class="text-body2 text-overflow color-primary" ng-show="!$ctrl.isHistory && $ctrl.accessConfig.showEventHistory">
+							{{ ::'EVENT_SHOW_RETROSPECTIVE' | translate }}
+						</div>
+						<div class="text-body2 text-overflow color-primary" ng-show="$ctrl.isHistory && $ctrl.accessConfig.showEventMonitoring">
+							{{ ::'EVENT_SHOW_MONITORING' | translate }}
+						</div>
+					</div>
+				</md-list-item>
+
+				<!--  empty for list -->
+				<div class="layout-column tm16 bm16" style="height: calc(100% - 193px); min-height: 350px;" ng-if="($ctrl.state == 'empty' || $ctrl.state == 'progress') && !$ctrl.pipMedia('gt-sm')"
+				     ng-include="'retrospective/events/includes/OperationalEventsEmpty.html'">
+				</div>
+				<div class="list-bottom-bufer" ng-if="$ctrl.state == 'data'">
+				</div>
+			</md-list>
+		</div>
+
+		<md-button class="md-fab md-accent md-fab-bottom-right" ng-if="$ctrl.state == 'data' && $ctrl.accessConfig.addEvent"
+		           ng-disabled="$ctrl.transaction.busy()" aria-label="add" ng-click="$ctrl.onAddOperationalEvent($event)">
+			<md-icon md-svg-icon="icons:pen"></md-icon>
+		</md-button>
+
+	</div>
+
+	<div class="pip-content-container">
+		<iqs-operational-event-details-panel ng-if="$ctrl.state == 'data' && $ctrl.selectedIndex > -1" iqs-event-item="$ctrl.collection[$ctrl.selectedIndex]"
+		                                     ng-disabled="$ctrl.transaction.busy()">
+		</iqs-operational-event-details-panel>
+
+		<iqs-operational-event-empty-panel ng-if="$ctrl.state == 'empty' || $ctrl.state == 'progress'" iqs-state="$ctrl.state"
+		                                   iqs-add="$ctrl.onAddOperationalEvent($event)" iqs-history="$ctrl.isHistory"
+		                                   ng-disabled="$ctrl.transaction.busy()">
+		</iqs-operational-event-empty-panel>
+
+		<iqs-operational-event-new-panel ng-if="$ctrl.state == 'add' && $ctrl.accessConfig.addEvent" iqs-save="$ctrl.onSave(item)"
+		                                 iqs-cancel="$ctrl.onCancel()" iqs-new-item="$ctrl.newOperationalEvent"
+		                                 iqs-event-template="$ctrl.eventTemplate" ng-disabled="$ctrl.transaction.busy()">
+		</iqs-operational-event-new-panel>
+	</div>
+</div>

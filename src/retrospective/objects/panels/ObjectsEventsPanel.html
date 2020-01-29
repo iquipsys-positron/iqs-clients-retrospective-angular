@@ -1,0 +1,28 @@
+<md-list class="pip-ref-list tp0">
+	<md-list-item class="pip-ref-list-item " md-ink-ripple ng-repeat="event in $ctrl.events track by $index" ng-if="!$ctrl.count || $ctrl.count > $index"
+	              ng-class="{'divider-bottom': !$ctrl.count}">
+		<md-icon md-svg-icon="icons:menu" ng-if="event.severity == 0" class="fg-cyan lm4">
+			<md-tooltip md-visible="showTooltip" md-direction="right">
+				Low
+			</md-tooltip>
+		</md-icon>
+		<md-icon md-svg-icon="icons:bug" ng-if="event.severity == 50" class="fg-cyan lm4">
+			<md-tooltip md-visible="showTooltip" md-direction="right">
+				Medium
+			</md-tooltip>
+		</md-icon>
+		<md-icon md-svg-icon="icons:info-circle-outline" ng-if="event.severity == 100" class="fg-cyan lm4">
+			<md-tooltip md-visible="showTooltip" md-direction="right">
+				High
+			</md-tooltip>
+		</md-icon>
+		<div class="pip-content">
+			<p class="text-body2 text-overflow flex">
+				{{event.description}}
+			</p>
+			<p class="pip-subtitle text-overflow flex">
+				{{event.time | formatShortDateTime}}
+			</p>
+		</div>
+	</md-list-item>
+</md-list>

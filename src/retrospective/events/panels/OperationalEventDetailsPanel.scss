@@ -1,0 +1,26 @@
+.iqs-operational-event-details-panel {
+    .pip-ref-title {
+        min-height: 64px;
+    }
+    .pip-pic.big-icon {
+        width: 64px !important;
+        height: 64px !important;
+        margin-right: 10px;
+        font-size: 32px;
+        md-icon {
+            margin-left: -6px;
+            width: 64px;
+            height: 64px;
+        }
+    }
+    .event-content {
+        margin: 12px 0px;
+        .event-text {
+            padding: 4px 0px;
+            line-height: 16px
+        }
+        .event-icon {
+            margin: 0px 24px 0px 8px;
+        }
+    }
+}

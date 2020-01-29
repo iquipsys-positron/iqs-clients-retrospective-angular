@@ -1,0 +1,41 @@
+iqs-organization-time-panel {
+    width: 100%;
+    .iqs-flex-retro {
+        width: 100%;
+        left: 0px !important;
+        bottom: 0px !important;
+        position: absolute !important;
+        border-radius: 0px !important;
+    }
+    .iqs-small,
+    .iqs-big {
+        height: 48px;
+        border-radius: 5px;
+    }
+    .iqs-small {
+        position: relative;
+        width: 100%;
+        md-icon {
+            color: #fff;
+        }
+        &.iqs-objects {
+            bottom: 8px !important;
+        }
+        &.iqs-map {
+            left: 0px !important;
+            bottom: 0px !important;
+            border-radius: 0px !important;
+        }
+    }
+    .iqs-big {
+        position: absolute;
+        bottom: 24px;
+        left: calc(50% - 80px);
+        md-icon {
+            color: #fff;
+        }
+    }
+    .iqs-reletive {
+        position: reletive;
+    }
+}

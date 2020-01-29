@@ -1,0 +1,73 @@
+<div class="pip-main-menu" ng-class="{'pip-single-content': $ctrl.details}" xxxng-if="$ctrl.pipMedia('gt-sm')">
+	<div class="pip-menu layout-column iqs-menu ">
+		<iqs-retrospective-data-time-panel ng-if="$ctrl.type == 'retro'" iqs-date="$ctrl.date" iqs-change="$ctrl.changeDate(date)"
+		                                   iqs-play="$ctrl.play" iqs-change-play="$ctrl.changePlay(play)" iqs-class="$ctrl.class">
+		</iqs-retrospective-data-time-panel>
+		<div class="m16 tm8 bm8">
+			<iqs-global-search-panel iqs-search-query="$ctrl.search" iqs-search-callback="$ctrl.onSearchResult(query)"
+			                         iqs-default-values="$ctrl.defaultCollection" iqs-cancel-callback="$ctrl.onCanselSearch()"
+			                         iqs-search-collection="$ctrl.searchedCollection">
+			</iqs-global-search-panel>
+		</div>
+
+		<div ng-show="$ctrl.error" class="pip-page-errors">
+			<span class="pip-error-text color-error flex"> {{$ctrl.error}}</span>
+			<md-icon md-svg-icon="icons:warn-circle" class="color-error"></md-icon>
+		</div>
+		<div class="flex" style="position: relative" ng-class="$ctrl.type == 'monitoring' ? 'iqs-monitoring-menu' : 'iqs-retro-menu'"
+		     ng-if="$ctrl.state() == 'data'">
+			<md-list class="pip-ref-list tp0 w-stretch h-stretch" style="position: absolute; overflow-y: auto; overflow-x: hidden;"
+			         pip-selected="$ctrl.selectedIndex" pip-select="$ctrl.selectItem($event.index)" pip-selected-watch="$ctrl.selectedIndex">
+
+				<md-list-item class="pip-ref-list-item pip-selectable pointer {{ $ctrl.pipMedia('gt-sm') ? '' : 'iqs-not-selectable' }}"
+				              ng-class="{'selected': $ctrl.selectedIndex == $index  && $ctrl.pipMedia('gt-sm'), 'iqs-empty-item': !section.object}"
+				              md-ink-ripple ng-repeat="section in $ctrl.collection" ng-if="section.object_id || section.isActive">
+					<!-- md-ink-ripple ng-repeat="section in $ctrl.collection track by $index" ng-if="section.object_id"> -->
+
+					<div ng-click="$ctrl.selectItem($index)" class="layout-row layout-align-start-center iqs-list-content">
+						<div class="pip-pic tm0" ng-if="section.object">
+							<pip-avatar pip-id="section.object.id" pip-rebind="true" pip-name="section.object.name" class="pip-face"></pip-avatar>
+						</div>
+						<div class="pip-content" ng-if="section.object">
+							<p class="text-body2 text-overflow flex">
+								{{ section.object.name }}
+							</p>
+							<p class="pip-subtitle text-overflow flex rp24 rm8">
+								{{ section.object | formatObjectSubtitle}}
+							</p>
+						</div>
+
+						<div class="pip-face pip-pic tm0 iqs-device-avatar p12  lm0 layout-row layout-align-center-center color-primary-bg"
+						     ng-if="!section.object">
+							<md-icon class="" md-svg-icon="iqs:tracker-1"></md-icon>
+						</div>
+
+						<div class="pip-content" ng-if="!section.object">
+							<p class="text-body2 text-overflow flex" ng-if="section.device">
+								{{section.device.label || section.device.udi}}
+							</p>
+							<p class="pip-subtitle text-overflow flex rp24 rm8" ng-if="section.device">
+								{{ $ctrl.getObjectName(section.device.object_id) || section.device.object_id || 'free' | translate}}
+							</p>
+							<p class="text-body2 text-overflow flex" ng-if="!section.device">
+								{{::'UNKNOWN_OBJECT' | translate}}
+							</p>
+						</div>
+					</div>
+				</md-list-item>
+				<div class="list-bottom-bufer">
+				</div>
+			</md-list>
+		</div>
+		<div class="pip-list-container iqs-menu-empty" ng-if="$ctrl.state() == 'empty' || $ctrl.state() == 'progress'">
+		</div>
+	</div>
+	<div class="pip-content-container" ng-include="'retrospective/objects/panels/ObjectDetails.html'">
+
+	</div>
+</div>
+
+<iqs-retrospective-data-time-panel ng-if="$ctrl.type == 'retro' && !$ctrl.pipMedia('gt-sm') && !$ctrl.details" iqs-date="$ctrl.date"
+                                   iqs-change="$ctrl.changeDate(date)" iqs-play="$ctrl.play" iqs-change-play="$ctrl.changePlay(play)"
+                                   iqs-class="$ctrl.class">
+</iqs-retrospective-data-time-panel>

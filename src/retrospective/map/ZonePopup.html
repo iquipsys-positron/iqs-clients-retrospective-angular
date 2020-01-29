@@ -1,0 +1,16 @@
+<pip-map-popup-content>
+    <div class="info-block tp0">
+        <div>
+            <p class="text-title bm16">{{ parameter.model.name }}</p>
+        </div>
+        <iqs-zone-event-rules-panel iqs-zone="parameter.model" ng-if="parameter.model"></iqs-zone-event-rules-panel>
+        <div class="pip-footer">
+            <div class="w-stretch layout-row layout-align-start-start">
+                <md-button class="flex-fixed md-accent" ng-click="parameter.element.options.events.onConfigureZone(parameter.model)"
+                           ng-if="parameter.element.options.isZoneConfigure">
+                    <div class="pip-title">{{ ::'CONFIGURE' | translate }}</div>
+                </md-button>
+            </div>
+        </div>
+    </div>
+</pip-map-popup-content>

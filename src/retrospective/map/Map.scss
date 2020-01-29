@@ -1,0 +1,37 @@
+@import "panels/MapPanel.scss";
+@import "panels/SearchPanelResults.scss";
+@import "panels/LastEventPanel.scss";
+@import "panels/CurrentStateObjectDetailsPanel.scss";
+@import "panels/OrganizationTimePanel.scss";
+.pip-map-info-window {
+    height: initial !important;
+    border-radius: 4px;
+    .info-block-actions {
+        display: none !important;
+    }
+    .iqs-icon {
+        margin-right: 32px;
+    }
+}
+
+.selected-marker-label,
+.unselected-marker-label {
+    border-radius: 2px;
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.5);
+    font-family: Roboto;
+    font-size: 8px;
+    font-weight: 500;
+    line-height: 1.38;
+    text-align: center;
+    padding: 1px 4px 1px 4px;
+}
+
+.unselected-marker-label {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #ffffff;
+}
+
+.selected-marker-label {
+    background-color: rgba(255, 255, 255, 0.7);
+    color: #000000;
+}

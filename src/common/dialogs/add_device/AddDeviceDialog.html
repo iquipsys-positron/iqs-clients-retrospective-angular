@@ -1,0 +1,58 @@
+<md-dialog class="pip-dialog layout-column bp0 pip-scroll" style="height: 80%" md-theme="{{$ctrl.theme}}">
+
+	<md-progress-linear md-mode="indeterminate" class="dialog-progress-linear" ng-show="$ctrl.transaction.busy()">
+	</md-progress-linear>
+	<div class="pip-header p16 divider-bottom">
+		<div class="w-stretch">
+
+			<h3 class="m0 bm16 w-stretch">{{:: 'DEVICE_DIALOG_TITLE' | translate }}</h3>
+			<iqs-global-search-panel iqs-search-query="$ctrl.status" iqs-search-callback="$ctrl.onSearchResult(query)"
+			                         iqs-cancel-callback="$ctrl.onCanselSearch()" iqs-default-values="$ctrl.defaultCollection"
+			                         iqs-search-collection="$ctrl.searchedCollection">
+			</iqs-global-search-panel>
+		</div>
+	</div>
+
+	<div class="pip-body lp0 rp0" ng-if="$ctrl.devices.length > 0">
+		<md-list class="pip-ref-list tp0">
+			<md-list-item class="pip-ref-list-item divider-bottom" md-ink-ripple ng-class="{'iqs-object-select': device.item.id == $ctrl.device_id}"
+			              ng-repeat="device in $ctrl.devices track by device.id" ng-click="$ctrl.selectItem($index)">
+				<div class="pip-face pip-pic tm0 iqs-device-avatar p8 layout-row layout-align-center-center color-primary-bg">
+					<md-icon class="" md-svg-icon="iqs:tracker-1"></md-icon>
+					<div class="iqt-device-bulet iqt-device-bulet-{{device.item.status}}"></div>
+				</div>
+				<div class="pip-content">
+					<p class="pip-title text-overflow flex">
+						{{ device.item.label || device.item.udi }}
+					</p>
+					<p class="pip-subtitle text-overflow flex" ng-if="$ctrl.typeCollection[device.item.type]">
+						{{ $ctrl.typeCollection[device.item.type].title | translate}}
+					</p>
+				</div>
+				<div>
+				</div>
+			</md-list-item>
+		</md-list>
+	</div>
+
+	<div class="pip-body p0 layout-column layout-align-center-center flex" ng-if="$ctrl.devices.length == 0">
+		<div class="layout-column layout-align-center-center flex bb-empty">
+			<div class="pip-empty">
+				<img src="images/empty/empty.svg" class="pip-pic">
+				<div class="pip-text bm16">
+					{{:: 'ADD_DEVICES_EMPTY'| translate}}
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+
+
+	<div class="pip-footer ">
+		<!-- <md-button ng-click="$ctrl.config()">{{::'CONFIG' | translate}}</md-button> -->
+		<div class="flex"></div>
+		<md-button class="md-accent" ng-click="$ctrl.cancel()">{{::'CANCEL' | translate}}</md-button>
+		<md-button class="md-accent" ng-click="$ctrl.change()">{{::'ADD_DEVICE_DIALOG_ASSINE' | translate}}</md-button>
+	</div>
+</md-dialog>

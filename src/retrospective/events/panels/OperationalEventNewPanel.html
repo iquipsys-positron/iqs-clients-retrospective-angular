@@ -1,0 +1,110 @@
+<form name="form" novalidate>
+    <pip-document class="pip-scroll">
+        <md-progress-linear md-mode="indeterminate" style="position: absolute;" ng-show="$ctrl.ngDisabled()"></md-progress-linear>
+        <div class="pip-body iqs-add-operational-event p24-flex bp16">
+
+            <div ng-show="$ctrl.error" class="pip-page-errors bm16">
+                <span class="pip-error-text color-error flex"> {{ $ctrl.error | translate }}</span>
+                <md-icon md-svg-icon="icons:warn-circle" class="color-error"></md-icon>
+            </div>
+
+            <div class="text-title bp16" ng-hide="$ctrl.eventTemplate && $ctrl.eventTemplate.description">
+                {{ ::'OPERATIONAL_EVENT_NEW' | translate }}
+            </div>
+
+            <md-input-container class="md-block bm0" ng-hide="$ctrl.eventTemplate && $ctrl.eventTemplate.description">
+                <label>{{ ::'EVENT_OPERATIONAL_LABEL' | translate }}</label>
+                <textarea ng-model="$ctrl.newOperationalEvent.description" aria-label="DESCRIPTION" class="text-subhead1"
+                          md-select-on-focus required name="description" ng-disabled="$ctrl.ngDisabled()">
+                        </textarea>
+
+                <div ng-messages="$ctrl.touchedErrorsWithHint($ctrl.form, $ctrl.form.description)" role="alert">
+                    <div ng-message="required">{{ 'EVENT_OPERATIONAL_DESCRIPTION_REQUIRED_ERROR' | translate }}</div>
+                </div>
+            </md-input-container>
+
+            <div class="text-title tp16 bp16" ng-show="$ctrl.eventTemplate && $ctrl.eventTemplate.description">
+                {{ $ctrl.newOperationalEvent.description }}
+            </div>
+
+            <md-input-container class="md-block tm0 bm0" ng-hide="$ctrl.eventTemplate && $ctrl.eventTemplate.description">
+                <label>{{ ::'OPERATIONAL_EVENT_SEVERITY_LABEL' | translate }}</label>
+                <md-select class="flex text-subhead1" aria-label="OBJECT" ng-model="$ctrl.newOperationalEvent.severity"
+                           ng-disabled="$ctrl.ngDisabled()">
+                    <md-option ng-repeat="obj in $ctrl.severityCollection  track by $index" ng-value="obj.id">
+                        {{ obj.title | translate }}
+                    </md-option>
+                </md-select>
+            </md-input-container>
+
+            <div class="text-subhead1 tp8 bp16" ng-show="$ctrl.eventTemplate && $ctrl.eventTemplate.description">
+                <div class="text-caption bp8 color-secondary-text">
+                    {{ ::'OPERATIONAL_EVENT_SEVERITY_LABEL' | translate }}
+                </div>
+                {{ $ctrl.severityCollection[$ctrl.newOperationalEvent.severity].title | translate }}
+            </div>
+
+            <div ng-if="$ctrl.isSetTime" class="layout-row">
+                <md-input-container class="md-block rm16 bm0 flex">
+                    <!--<label>{{ ::'EVENT_DATE_LABEL' | translate }}</label>-->
+                    <md-datepicker class="w-stretch text-subhead1" name="event_data" ng-change="$ctrl.onDateChange()"
+                                   ng-disabled="$ctrl.ngDisabled()" required md-hide-icons="calendar" aria-label="TIME"
+                                   ng-model="$ctrl.newOperationalEvent.date">
+                    </md-datepicker>
+                    <div ng-messages="$ctrl.touchedErrorsWithHint($ctrl.form, $ctrl.form.event_data)" role="alert">
+                        <div ng-message="required">{{ 'EVENT_OPERATIONAL_DATE_REQUIRED_ERROR' | translate }}</div>
+                    </div>
+                </md-input-container>
+                <pip-time-autocomplete class="md-block bm0 iqs-time text-subhead1" pip-change-callback="$ctrl.onDateChange"
+                                       ng-disabled="$ctrl.ngDisabled()" pip-date-time="$ctrl.newOperationalEvent.time"
+                                       pip-time-step="'15'" pip-time-placeholder="'EVENT_TIME_LABEL'">
+                </pip-time-autocomplete>
+
+            </div>
+
+            <div class="layout-row layout-align-start-center" ng-if="$ctrl.isSetObject && $ctrl.ObjectsCollection.length > 0">
+                <md-input-container class="md-block tm16 hide-md-errors-spacer  bm16 flex">
+                    <label>{{ ::'EVENT_OBJECTS_GROUP_LABEL' | translate }}</label>
+                    <md-select class="flex text-subhead1" aria-label="OBJECT" ng-model="$ctrl.newOperationalEvent.objectGroupId"
+                               ng-disabled="$ctrl.ngDisabled()">
+                        <md-option ng-repeat="obj in $ctrl.ObjectsCollection  track by $index" ng-value="obj.id">
+                            <md-icon class="rm16" md-svg-icon="{{ obj.icon }}"></md-icon> {{ obj.name }}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+                <md-button class="flex-fixed md-icon-button m0" ng-disabled="$ctrl.ngDisabled()" aria-label="DELETE-OBJECT"
+                           ng-click="$ctrl.clearObject()">
+                    <md-icon md-svg-icon="icons:cross"></md-icon>
+                    <md-button>
+            </div>
+            <div class="tp8 layout-row layout-align-start-center" ng-if="$ctrl.isSetPos && $ctrl.LocationsCollection.length > 0">
+                <md-input-container class="md-block hide-md-errors-spacer tm16 bm16 flex">
+                    <label>{{ ::'EVENT_LOCATION_ZONE_LABEL' | translate }}</label>
+                    <md-select class="flex text-subhead1" aria-label="POSITION" ng-model="$ctrl.newOperationalEvent.locationZoneId"
+                               ng-disabled="$ctrl.ngDisabled()">
+                        <md-option ng-repeat="loc in $ctrl.LocationsCollection  track by $index" ng-value="loc.id">
+                            <md-icon class="rm16" md-svg-icon="{{ loc.icon }}"></md-icon> {{ loc.name }}
+                        </md-option>
+                    </md-select>
+                </md-input-container>
+                <md-button class="flex-fixed md-icon-button m0" ng-disabled="$ctrl.ngDisabled()" aria-label="DELETE-OBJECT"
+                           ng-click="$ctrl.clearLocation()">
+                    <md-icon md-svg-icon="icons:cross"></md-icon>
+                    <md-button>
+            </div>
+        </div>
+
+        <div class="pip-footer divider-top" style="height: 86px">
+            <div class="pip-action-list w-stretch">
+                <md-button class="pip-action-list-item" ng-click="$ctrl.onSaveClick()" ng-disabled="$ctrl.ngDisabled()">
+                    <md-icon class="pip-pic" md-svg-icon="icons:check"></md-icon>
+                    <div class="pip-title">{{ ::'EVENT_ADD_BUTTON' | translate }}</div>
+                </md-button>
+                <md-button class="pip-action-list-item" ng-click="$ctrl.onCancelClick()">
+                    <md-icon class="pip-pic" md-svg-icon="icons:cross"></md-icon>
+                    <div class="pip-title">{{ ::'EVENT_CANCEL_BUTTON' | translate}}</div>
+                </md-button>
+            </div>
+        </div>
+    </pip-document>
+</form>

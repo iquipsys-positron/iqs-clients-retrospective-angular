@@ -1,0 +1,17 @@
+iqs-last-event-panel {
+    md-list {
+        cursor: pointer;
+        transition: all .5s ease;
+        max-height: 100px;
+        &.hide {
+            max-height: 0px !important;
+        }
+        .iqs-fade {
+            transition: all .5s ease;
+            opacity: 1;
+        }
+        .iqs-fade.out {
+            opacity: 0 !important;
+        }
+    }
+}

@@ -1,0 +1,12 @@
+<div ng-if="$ctrl.includeEventRules.length > 0">
+    <div class="entry-label color-secondary-text bm8">{{ ::'ZONE_INCLUDE_RULES_LABEL' | translate }}</div>
+    <div ng-repeat="rule in $ctrl.includeEventRules track by $index" class="text-body1 bm8">
+        {{ rule.name }}
+    </div>
+</div>
+<div ng-if="$ctrl.excludeEventRules.length > 0">
+    <div class="entry-label color-secondary-text bm8">{{ ::'ZONE_EXCLUDE_RULES_LABEL' | translate }}</div>
+    <div ng-repeat="rule in $ctrl.excludeEventRules track by $index" class="text-body1 bm8">
+        {{ rule.name }}
+    </div>
+</div>

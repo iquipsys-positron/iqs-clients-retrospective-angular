@@ -1,0 +1,28 @@
+<pip-document>
+    <div class="pip-body layout-column layout-align-center-center flex ">
+        <div class="layout-column layout-align-center-center flex iqs-empty ">
+            <div class="pip-empty" ng-if="$ctrl.state == 'empty'">
+                <img src="images/empty/empty.svg" class="pip-pic">
+                <div class="pip-text">
+                    {{ ::'OPERATIONAL_EVENT_EMPTY_TITLE' | translate }} <br><br>
+                </div>
+                <div class="pip-actions layout-row layout-align-end-center">
+                    <div class="pip-actions layout-column layout-align-end-center">
+                        <md-button class="color-accent-bg tm8 w-stretch " aria-label="DOWNLOAD" ng-if="!$ctrl.isHistory"
+                                   ng-click="$ctrl.onAdd()" ng-disabled="$ctrl.transaction.busy() || !$ctrl.accessConfig.addEvent">
+                            {{ ::'OPERATIONAL_EVENT_ADD' | translate }}
+                        </md-button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pip-empty" ng-if="$ctrl.state == 'progress'">
+                <img src="images/empty/progress.svg" class="pip-pic">
+                <div class="pip-text">
+                    {{ ::'OPERATIONAL_EVENT_LOADING' | translate }}
+                    <md-progress-linear md-mode="indeterminate" class="tm24"></md-progress-linear>
+                </div>
+            </div>
+        </div>
+    </div>
+</pip-document>
