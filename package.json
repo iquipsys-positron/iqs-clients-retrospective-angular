@@ -1,8 +1,8 @@
 {
-    "name": "iqs-client-retrospective-app",
-    "version": "2.0.0",
-    "author": "Conceptual Vision Consulting LLC <www.conceptual.vision>",
-    "description": "Positron retrospective app",
+    "name": "iqs-clients-retrospective-angular",
+    "version": "1.0.0",
+    "author": "iQuipsys Inc. <www.iquipsys.com>",
+    "description": "Retrospective client microapplication for iQuipsys Positron in Angular",
     "contributors": [
         {
             "name": "Sergey Seroukhov",
@@ -18,9 +18,9 @@
         }
     ],
     "keywords": [
-        "pip",
-        "iqs",
-        "app"
+        "iquipsys",
+        "positron",
+        "retrospective"
     ],
     "noAnalyze": true,
     "license": "MIT",
